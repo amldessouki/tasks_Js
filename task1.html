@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>user -form</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  font-weight: Arial, sans-serif;
+  background: #f4f4f4;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  /* background-color: rgb(233, 226, 226); */
+  width: 400px;
+  min-height: 300px;
+}
+@media (max-width: 767px) {
+  .container {
+    flex-direction: column;
+    height: 400px;
+  }
+}
+.container form {
+  /* background: #588157; */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px, rgba(0, 0, 0, 0.1);
+  /* width: 300px;
+  min-height: 300px; */
+}
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+input[type="text"],
+input[type="number"] {
+  margin-bottom: 4px;
+  width: 100%;
+  background: #fff;
+  padding: 10px;
+  color: black;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button {
+  width: 30%;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  font-size: 16px;
+  margin:20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+
+
+}
+button:hover {
+  background-color: #218838;
+}
+.out-container {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 4px;
+
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>user Form</h1>
+      <form id="userForm">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="enter your name"
+          required
+        />
+        <input
+          type="text"
+          name="interest"
+          id="interest"
+          placeholder="enter your intersting"
+          required
+        />
+        <input type="number" name="age" id="age" placeholder="your age" />
+        <div id="output" class="out-container"></div>
+
+        <button type="submit">submit</button>
+        
+      </form>
+      <button id="clearOutput">Clear</button>
+    </div>
+    <script >
+        const output = document.getElementById("output");
+        const clearOutputButton = document.getElementById("clearOutput");
+
+        document
+        .getElementById("userForm")
+        .addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            //get user input
+            const username = document.getElementById("name").value;
+            const age = document.getElementById("age").value;
+            const interst = document.getElementById("interest").value;
+
+            //getting output
+            output.innerHTML = `
+            
+            <h1>Welcome!${username}</h1> 
+            <h1>your age is${age}and</h1>
+            <h1> your intersting is${interst},It's nice<h1>
+        
+            `;
+
+            // document.getElementById("userForm").reset();
+        });
+
+        
+        clearOutputButton.addEventListener("click", function () {
+            output.innerHTML = "";
+            userForm.value= "";
+           
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array _Mathods</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        text-align: center;
+        margin: 0 auto;
+        width: 50%;
+      }
+      h2 {
+        color: #333;
+      }
+      .box {
+        margin-top: 15px;
+        padding: 10px;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        margin: 5px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f7f7f7;
+        padding: 10px;
+        border-radius: 6px;
+        margin: 7px;
+      }
+      .deletTask {
+        outline: none;
+        border: none;
+        color: white;
+        background-color: red;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Add Tasks</h2>
+
+      <input type="text" name="" id="taskInput" placeholder="Add your task" />
+      <button type="submit" id="addTask">Add</button>
+
+      <div class="box">
+        <ul id="taskList"></ul>
+      </div>
+    </div>
+    <script>
+      const addButton = document.getElementById("addTask"); //button
+      const taskInput = document.getElementById("taskInput"); //input
+      const taskList = document.getElementById("taskList"); //ul to save list in li
+
+      loadTasks();
+
+      function addTask() {
+        const task = taskInput.value.trim();
+
+        if (task) {
+          createTaskElement(task);
+          taskInput.value = "";
+
+          saveTasks();
+        } else {
+          alert("please enter a task");
+        }
+      }
+
+      addButton.addEventListener("click", addTask);
+
+      function createTaskElement(task) {
+        const listItem = document.createElement("li");
+        listItem.textContent = task;
+
+        const deletButton = document.createElement("button");
+        deletButton.textContent = "Delete";
+        deletButton.classList = "deletTask";
+
+        listItem.appendChild(deletButton);
+
+        taskList.appendChild(listItem);
+
+        deletButton.addEventListener("click", function () {
+          taskList.removeChild(listItem);
+        });
+      }
+
+      function saveTasks() {
+        let tasks = [];
+
+        taskList.querySelectorAll("li").forEach(function (item) {
+          tasks.push(item.textContent.replace("Delete", "").trim());
+        });
+
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      }
+
+      function loadTasks() {
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+        tasks.forEach(createTaskElement);
+      }
+    </script>
+  </body>
+</html>

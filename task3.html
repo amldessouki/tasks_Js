@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "lato", sans-serif;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(240, 235, 244);
+      }
+      .container {
+        text-align: center;
+      }
+      .container h3 {
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: blue;
+      }
+      .container input[type="text"] {
+        margin: 8px 0;
+        padding: 8px;
+        width: 100%;
+        font-size: 16px;
+        border-radius: 6px;
+      }
+      .container input[type="text"]:focus {
+        outline: none;
+        border: none;
+      }
+      .container button[type="submit"] {
+        margin: 8px 0;
+        padding: 8px;
+        width: 50%;
+        font-size: 16px;
+        color: blue;
+        cursor: pointer;
+        border-radius: 6px;
+      }
+      .container input[type="submit"]:focus {
+        outline: none;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h3>Enter your day</h3>
+      <input type="text" id="textDay" />
+      <button type="submit" id="submit" onclick="checkDay()">submit</button>
+
+      <div onclick="removeResult()">
+        <h4 id="result"></h4>
+      </div>
+    </div>
+
+    <script>
+      function checkDay() {
+        const textDay = document
+          .getElementById("textDay")
+          .value.trim()
+          .toLowerCase();
+        const result = document.getElementById("result");
+        let message;
+
+        switch (textDay) {
+          case "monday":
+            message = "It's a good day to start your week!";
+            break;
+          case "tuesday":
+            message = "Be strong!";
+            break;
+          case "wednesday":
+            message = "Happy day!";
+            break;
+          case "thursday":
+            message = "It's Thursday!";
+            break;
+          case "friday":
+            message = "Happy weekend!";
+            break;
+          case "saturday":
+            message = "Relax!";
+            break;
+          case "sunday":
+            message = "Enjoy your day!";
+            break;
+          default:
+            message = "Please enter a valid day!";
+        }
+        result.textContent = message;
+      }
+     const appendSpan =document.createElement("span");
+     appendSpan.className="del"
+     appendSpan.att
+      function removeResult() {
+        document.getElementById("result").textContent = "";
+        document.getElementById("textDay").value = "";
+      }
+      //
+      // const dayMessages = {
+      //   monday: "It's a good day to start your week!",
+      //   tuesday: "Be strong!",
+      //   wednesday: "Happy day!",
+      //   thursday: "It's Thursday!",
+      //   friday: "Happy weekend!",
+      //   saturday: "Relax!",
+      //   sunday: "Enjoy your day!",
+      // };
+      // const textDay = document
+      //   .getElementById("textDay")
+      //   .value.trim()
+      //   .toLowerCase();
+      // const result = document.getElementById("result");
+      // const message = dayMessages("textDay") || "entera valid day";
+      // result.textContent = message;
+
+      // function removeResult() {
+      //   document.getElementById("result").textContent = "";
+      //   document.getElementById("textDay").value = "";
+      // }
+    </script>
+  </body>
+</html>
