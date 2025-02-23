@@ -1,206 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tax-Price</title>
-    <style>
-      body{
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tax_Price</title>
+  <style>
+    :root {
+            --primary-color: #1a023c;
+            --secondary-color: #1b0338;
+            --accent-color: #24056b;
+            --text-dark: #333;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #582a98;
+            border-radius: 5px; 
+
+        }
+
+      * {
+        padding: 0;
         margin: 0;
-      }
-      .container{
-        background-color: white;
-        padding: 20px;
-        border-radius: 6px;
-        box-shadow: 2px 4px 40px rgba(0, 0, 0, 0.6);
-        width: 100%;
-        max-width: 650px;
-        display: flex;
-        gap: 20px;
-      }
-      .left-section{
-        width: 55%;
-        padding-right: 10px;
-        padding-bottom: 10px;
-      }
-      .left-section h1{
-        margin: 0;
-        font-size: 1.7rem;
-        color: rgb(10, 10, 10);
-        margin-top: 5px;
-        margin-bottom: 15px;
-      }
-      label{
-        font-size: 1rem;
-        margin-bottom: 5px;
-        color:#303030;
-        display: block;
-        margin-top: 10px;
-      }
-      input{
-        width: 100%;
-        padding: 8px;
-        font-size: 1rem;
-        border: 1px solid #a3a3a3;
-        border-radius: 5px;
-        margin-top: 5px;
-      }
-      button{
-        width: 100%;
-        background-color: #007bff;
-        color:white;
-        border: none;
-        cursor: pointer;
-        padding: 10px;
-        border-radius: 5px;
-      }
-      button.small-btn{
-        width: 45%;
-        font-size: 1rem;
-        background-color: #6c757d;
-      }
-      button.small-btn:hover{
-        background-color: #5a6268;
-      }
-      button:hover{
-        background-color: #0056b3;
-      }
-      .button-group{
-        margin-top: 10px;
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-      }
-      input:focus button:focus{
+        box-sizing: border-box;
         outline: none;
-        border-color: #007bff;
+        border: none;
       }
-      .right-section{
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px;
-        background-color: #f1f1f1;
-        border-radius: 7px;
-        box-shadow:  inset 0 0 5px rgba(0, 0, 0, 0.2);
-        /* display: none; */
-
-      }
-      .right-section h1{
-        margin: 0;
-        font-size: 1.4rem;
-        margin-top: 10px;
-        margin-bottom: 15px;
-        color:#911818;
-      }
-      #result-value{
-        color:rgb(50, 138, 238);
-      }
-     /* responsiv design */
-     @media (max-width:768px) {
-      .container{
-        flex-direction: column;
-        align-items: center;
-        padding-right: 35px;
-        margin: 20px;
-      }
-      .left-section .right-section{
-        width: 100%;
-      }
-      .right-section{
-        margin-top: 0px;
-      }
-      .right-section h1{
-        margin-top: 5px;
-        margin-bottom: 10px;
+      body{
+        background-color:#f8f9fa;;
+        color:rgb(6, 6, 6);
+        line-height: 1.6;
+        padding: 2rem;
+        min-height: 100vh;
       }
 
-      
-     }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-     
-      <div class="left-section">
-        <h1>Tax-Price</h1>
-        <div class="form-group">
-          <label for="price">Price:</label>
-          <input type="number" id="price" placeholder="Enter price" />
-        </div>
-        <div class="form-group">
-          <label for="tax">Tax-price:</label>
-          <input type="number" name="" id="tax" placeholder="Enter tax rate" />
-        </div>
-        <div class="button-group">
-          <button id="Calculate-btn">Calculater</button>
-          <button class="small-btn" id="remove-btn">remove</button>
-        </div>
-
-
-      </div>
-      <div class="right-section" id="">
-        <h1>Results:</h1>
-        <div id="result">
-          <p>Before Tax Price:
-            <span id="result-value"></span>
-          </p>
-          <p>Sales Price:
-            <span id="result-value"></span>
-          </p>
-          <p>After Tax Price:
-            <span id="result-value"></span>
-          </p>
-        </div>
-
-        
-
- 
-    
-
-
-    <script>
-   document.getElementById("Calculate-btn").addEventListener("click",function(){
-
-    const price =parseFloat(document.getElementById("price").value);
-    const taxPrice =parseFloat(document.getElementById("tax").value);
-
-    if(isNaN(price) || isNaN(taxPrice)){
-      alert("please invalid numbers")
-      return;
+      .container {
+        background: #ffffff;
+        padding: 2rem;
+        border-radius: 1rem;
+       max-width: 1000px;
+      box-shadow: var(--shadow);
+      margin: 0 auto;
+      animation:fedeIn 0.5s ease;
+      }
+    @keyframes fedeIn {
+      from {opacity: 0;
+        transform: translateY(20px);
+      }
+      to{
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+     h1 {
+       color:var(--primary-color);
+       text-align: center;
+       margin-bottom: 2rem;
+       font-size: 2rem;
+      }
+      #productContainer{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px ,1fr));
+        gap: 1rem;
+        /* margin-top: 2rem; */
 
-    const salesTax = (price * taxPrice) /100;
-    const totalPrice = price + salesTax;
 
-    const resultValues = document.querySelectorAll("#result-value");
-    resultValues[0].textContent = `$${price.toFixed(2)}`
-    resultValues[1].textContent = `${taxPrice.toFixed(2)}% or $${salesTax.toFixed(2)}`;
-    resultValues[2].textContent = `$${totalPrice.toFixed(2)}`
-  
+      }
+      .product {
+            background:var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            /* animation: slideIn 0.5s ease forwards; */
+            margin: 5px;
+            margin-bottom: 5px;
+            gap: 3px;
+            border:1px solid rgb(235, 221, 221);
+        }
+  </style>
+</head>
+<body>
+  <article class="container">
+    <h1>Product _Tax _Price</h1>
+    <div id="productContainer">
+
+    </div>
+  </article>
+
+  <script>
+    const products =[
+      {name: "product1", price:50},
+      {name: "product2", price:100},
+      {name: "product3", price:150},
+      {name: "product4", price:250},
+      {name: "product5", price:75},
+      {name: "product6", price:350},
+
+    ];
 
 
-  });
+  const tax_rate =0.14;
 
-  // create  function to clear data
-    document.getElementById("remove-btn").addEventListener("click",()=>{
-      document.getElementById("price").value ="";
-      document.getElementById("tax").value ="";
+  function calculateFinalPrice (price){
+    return (price + price *tax_rate).toFixed(3);
+  }
+
+  function displayProducts() {
+    const container = document.getElementById("productContainer");
+    container.innerHTML ="";
+    products.forEach(product =>{
+      const finalPrice = calculateFinalPrice(product.price);
+      const productDiv =document.createElement("div");
+
+      productDiv.classList ="product";
+      productDiv.innerHTML=`
      
+        <h2>${product.name}</h2>
+      <p>Basic Price:<strong>${product.price}$</strong> </p>
+      <p>final price after tax:<span>${finalPrice}$</span> </p>
+      
+        
+     
+        `;
+      
 
-      const resultValues = document.querySelectorAll("#result-value");
-      resultValues.forEach(value=>
-      {
-        value.textContent=""; 
-      });
+      container.appendChild(productDiv);
     });
-    </script>
-  </body>
+
+  }
+  displayProducts();
+  </script>
+</body>
 </html>

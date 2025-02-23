@@ -140,6 +140,7 @@
             font-size: 1.2rem;
             color: var(--text-dark);
         }
+       
     </style>
   </head>
   <body>
@@ -153,7 +154,7 @@
     </div>
     <script>
       const products = [
-        { name: "product-1", price: 50 ,src:"image1"},
+        { name: "product-1", price: 50 ,src:"./img/t1.jpg"},
         { name: "product-2", price: 100 ,src:"image2"},
         { name: "product-3", price: 150 ,src:"image2"},
         { name: "product-4", price: 170 ,src:"image2"},
@@ -165,29 +166,31 @@
 
       function displayProducts(filteredProducts) {
         productContainer.innerHTML = "";
-
         if (filteredProducts.length === 0) {
           productContainer.innerHTML = `
     <p>product not found </p>
     `;
     return;
         }
-      
+
 
         filteredProducts.forEach( product => {
        
-          // /create elements by js and filter 
-          const productDiv = document.createElement("div" );
-          productDiv.classList = "product";
-          productDiv.innerHTML = `
-                <h3>${product.name}</h3>
-                <p>${product.price}</p>
-               
-               
-               `;
-          productContainer.appendChild(productDiv);
-        });
+       // /create elements by js and filter 
+       const productDiv = document.createElement("div" );
+       productDiv.classList = "product";
+       productDiv.innerHTML = `
+             <h3>${product.name}</h3>
+             <p>${product.price}</p>
+        
+            
+            
+            `;
+       productContainer.appendChild(productDiv);
+     });
       }
+
+     
 
 
       function filterProducts(){
@@ -195,8 +198,9 @@
       const filtered = !isNaN(maxPrice)
         ? products.filter((product) => product.price <= maxPrice)
         : products;
-      displayProducts(filtered);
+        displayProducts(filtered); 
     }
+    displayProducts(products); 
     </script>
   </body>
 </html>
