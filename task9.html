@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task9</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+    --primary-color: #260553;
+    --secondary-color: #1b0338;
+    --accent-color: #24056b;
+    --text-dark: #333;
+    --bg-light: #f8f9fa;
+    --bg-white: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --code-bg: #1e1e1e;
+    --code-text: #d4d4d4;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #470d99;
+    border-radius: 5px; 
+
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    padding: 2rem;
+    min-height: 100vh;
+}
+.container {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1{
+            color:var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+       
+        #productList{
+            display: grid;
+        
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .product{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border:1px solid #eee;
+            border-radius: 0.5rem;
+            background: var(--bg-white);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: slideIn 0.5s ease forwards;
+        }
+       .product:hover{
+        transform: translateY(-3px);
+        box-shadow :0 6px 12px rgba(0, 0, 0, 0.15);
+       }
+       .product-info{
+        flex:1;
+        margin-left: 1.5rem;
+       }
+       .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+       .product button{
+        padding: 0.5rem 1rem;
+        border:none;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 500;
+       }
+       .delet-btn{
+        background-color: red;
+        color:white;
+       }
+       .edit-btn{
+        background-color: green;
+        color:white;
+       }
+       .empty-state {
+    text-align: center;
+    font-size: 1.2rem;
+    color: red;
+    margin-top: 1rem;
+}
+
+       @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .product {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .product-actions {
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            .product button {
+                width: 100%;
+            }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>List Products</h1>
+  <!-- <div class="container"> -->
+    
+    <div id="productList"></div>
+  <!-- </div> -->
+
+
+  <script>
+    const products =[
+        {name:"laptop",price:1200,description:"laptop high value for codeing and gaming"},
+        {name:"phone",price:8000,description:"smart phone with Ai process"},
+        {name:"headPhones",price:500,description:"good quality options"},
+    ];
+
+    function renderProducts() {
+        const productList = document.getElementById("productList");
+        productList.innerHTML="";
+        if(products.length===0) {
+            productList.innerHTML ='<p class="empty-state">undefind product to review</p>';
+             
+
+            return;
+        }
+        products.forEach((product, index)=>{
+            const productDiv =document.createElement("div");
+            productDiv.classList.add("product");
+            productDiv.innerHTML=`
+                <div class ="product-info">
+                     <h3>${product.name}</h3>
+                     <p>$${product.price}</p>
+                     <p>${product.description}</p>
+                </div>
+
+                <div class ="product-actions">
+                    <button class ="delet-btn" onclick ="deletProduct(${index})">Delet</button>
+                    
+                    <button class ="edit-btn" onclick ="editProduct(${index})">Edit</button>
+                    </div>
+            `;
+            productList.appendChild(productDiv);
+        });
+
+    }
+    function deletProduct(index){
+        if(confirm("Are you sure to delet")){
+            products.splice(index, 1)
+            renderProducts();
+        }
+    }
+
+    function editProduct(index){
+        const newName =prompt("enter new name:", products[index].name);
+        const newPrice = prompt ("newPrice:", products[index].price);
+        const newDescription = prompt("enter new description:" , products[index].description);
+
+         
+
+
+       if (newName !==null && newName.trim()) products[index].name =newName.trim();
+       if ( newPrice !==null && !isNaN(newPrice)) products[index].price = parseFloat(newPrice);
+       if  (newDescription !== null && newDescription.trim()) products[index].description =newDescription.trim();
+
+        renderProducts();
+
+    }
+
+    renderProducts();
+  </script>
+</body>
+</html>
