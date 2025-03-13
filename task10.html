@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User-managment-system</title>
+    <style>
+        * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.add-user-form {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #444;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+.form-group {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  flex: 1;
+  min-width: 200px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* button:hover {
+  background-color: #0056b3;
+} */
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  color: #444;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+.delete-btn {
+  padding: 6px 12px;
+  margin: 0 5px;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+}
+
+@media (max-width: 768px) {
+  .form-group {
+    flex-direction: column;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Management System</h1>
+        <form id="addUserForm" class="add-user-form">
+            <div class="form-group">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="number" id="age" placeholder="Age" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <button type="submit">Add User</button>
+            </div>
+
+               <!-- Users Table -->
+        <div class="table-container">
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersList">
+                   
+                </tbody>
+            </table>
+        </div>
+        </form>
+    </div>
+    
+    <script>
+        let users =[];
+
+        const addUserForm = document.getElementById("addUserForm");
+        const userList =document.getElementById("usersList");
+        
+        addUserForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name =document.getElementById("name").value;
+            const age =document.getElementById("age").value;
+            const email =document.getElementById("email").value;
+
+            users.push({name ,age ,email});
+
+            displayUser();
+            addUserForm.reset();
+
+        });
+
+        function displayUser(){
+
+            userList.innerHTML ="";
+
+            users.forEach( (user, index) =>{
+
+                const row = document.createElement("tr");
+                row.innerHTML =`
+                         <td class="user-data" >${user.name}</td>
+                        <td class="user-data" >${user.age}</td>
+                       <td class="user-data" >${user.email}</td>
+            <td>
+               
+                <button class="delete-btn" onclick="deleteUser(${index})">Delete</button>
+            </td>
+        `;
+        userList.appendChild(row);  
+
+            });
+            
+
+        };
+        function deleteUser(index){
+            if (confirm("are your sure to delete user")){
+                users.splice(index, 1);
+                displayUser();
+            }
+        }
+
+        displayUser();
+     
+   
+
+    </script>
+</body>
+</html>
